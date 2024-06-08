@@ -1,31 +1,56 @@
 import { useEffect, useState } from "react";
-/*챌린지
-input을 만들어서 내가 20달러를 가지고 있다고 쓸 수 있게하고
-20달러로 0.00의 비트코인을 가질 수 있다고 말해주는 등을 만들면된다. */
+
 function App() {
   const [loading, setLoading] = useState(true);
-  const [coins, setCoins] = useState([]);
+  const [movies, setMovies] = useState([]);
+
+  //async-await = then()
+  const getMovies = async () => {
+    const json = await (
+      await fetch(
+        "https://yts.mx/api/v2/list_movies.json?minimum_rating=9&sort_by=year"
+      )
+    ).json();
+    /* const response = await fetch(
+      "https://yts.mx/api/v2/list_movies.json?minimum_rating=9&sort_by=year"
+    );
+    const json = await response.json(); */
+    setMovies(json.data.movies);
+    setLoading(false);
+  };
+
   useEffect(() => {
-    fetch("https://api.coinpaprika.com/v1/tickers")
+    /*    fetch(
+      "https://yts.mx/api/v2/list_movies.json?minimum_rating=9&sort_by=year"
+    )
       .then((response) => response.json())
       .then((json) => {
-        setCoins(json);
-        setLoading(false);
-      });
+        setMovies(json.data.movies);
+        setLoding(false);
+      }); */
+
+    getMovies();
   }, []);
+
   return (
     <div>
-      <h1>The Coins! {loading ? "" : `(${coins.length})`}</h1>
       {loading ? (
-        <strong>Loading...</strong>
+        <h1>loading...</h1>
       ) : (
-        <select>
-          {coins.map((coin) => (
-            <option>
-              {coin.name} ({coin.symbol}): {coin.quotes.USD.price} USD
-            </option>
+        <div>
+          {movies.map((movie) => (
+            <div key={movie.id}>
+              <h2>{movie.title}</h2>
+              <img src={movie.medium_cover_image} />
+              <p>{movie.summary}</p>
+              <ul>
+                {movie.genres.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
           ))}
-        </select>
+        </div>
       )}
     </div>
   );

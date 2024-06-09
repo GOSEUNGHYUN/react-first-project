@@ -1,59 +1,19 @@
-import { useEffect, useState } from "react";
+//npm install react-router-dom
 
 function App() {
-  const [loading, setLoading] = useState(true);
-  const [movies, setMovies] = useState([]);
-
-  //async-await = then()
-  const getMovies = async () => {
-    const json = await (
-      await fetch(
-        "https://yts.mx/api/v2/list_movies.json?minimum_rating=9&sort_by=year"
-      )
-    ).json();
-    /* const response = await fetch(
-      "https://yts.mx/api/v2/list_movies.json?minimum_rating=9&sort_by=year"
-    );
-    const json = await response.json(); */
-    setMovies(json.data.movies);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    /*    fetch(
-      "https://yts.mx/api/v2/list_movies.json?minimum_rating=9&sort_by=year"
-    )
-      .then((response) => response.json())
-      .then((json) => {
-        setMovies(json.data.movies);
-        setLoding(false);
-      }); */
-
-    getMovies();
-  }, []);
-
-  return (
-    <div>
-      {loading ? (
-        <h1>loading...</h1>
-      ) : (
-        <div>
-          {movies.map((movie) => (
-            <div key={movie.id}>
-              <h2>{movie.title}</h2>
-              <img src={movie.medium_cover_image} />
-              <p>{movie.summary}</p>
-              <ul>
-                {movie.genres.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
+  return null;
 }
 
 export default App;
+
+/*
+이제 App.js는 router를 render하게된다.
+router는 URL을 보고있는 component고, 
+우리가 여기있다면(http://localhost:3000/) router는 우리에게 Home component를 보여주게 될거야
+그리고 만약우리가 이걸 http://localhost:3000/movies/123이런식으로 바꾼다면
+router는 우리에게 Detail component를 보여주게될거야
+
+그래서 App.js는 이제 새로운 component를 render하게 될텐데 다음영상에서 소개한다.
+그리고 이 새로운 component는 URL을 보고 있는거고 URL에 따라서 
+우리는 Home을 보여주거나 Detail을 보여주거나 할거야.
+*/

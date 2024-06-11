@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/react-first-project/static/js/main.d0035bbc.js",
+    "main.js": "/react-first-project/static/js/main.17804e85.js",
     "index.html": "/react-first-project/index.html",
-    "main.d0035bbc.js.map": "/react-first-project/static/js/main.d0035bbc.js.map"
+    "main.17804e85.js.map": "/react-first-project/static/js/main.17804e85.js.map"
   },
   "entrypoints": [
-    "static/js/main.d0035bbc.js"
+    "static/js/main.17804e85.js"
   ]
 }
